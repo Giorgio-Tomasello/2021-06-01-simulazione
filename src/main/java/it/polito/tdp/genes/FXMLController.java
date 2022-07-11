@@ -19,6 +19,7 @@ import javafx.scene.control.TextField;
 public class FXMLController {
 	
 	private Model model;
+	boolean grafocreato=false;
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -30,7 +31,7 @@ public class FXMLController {
     private Button btnCreaGrafo; // Value injected by FXMLLoader
 
     @FXML // fx:id="cmbGeni"
-    private ComboBox<?> cmbGeni; // Value injected by FXMLLoader
+    private ComboBox<Genes> cmbGeni; // Value injected by FXMLLoader
 
     @FXML // fx:id="btnGeniAdiacenti"
     private Button btnGeniAdiacenti; // Value injected by FXMLLoader
@@ -47,17 +48,28 @@ public class FXMLController {
     @FXML
     void doCreaGrafo(ActionEvent event) {
     	
+    	txtResult.setText(model.creaGrafo());
+    	grafocreato = true;
+    	cmbGeni.getItems().addAll(model.getGrafo().vertexSet());
 
     }
 
     @FXML
     void doGeniAdiacenti(ActionEvent event) {
 
+    	if(grafocreato==false) {
+    		txtResult.setText("Errore! Creazione del grafo richiesta");
+    	}
+    	txtResult.setText(model.getAdiacenze(cmbGeni.getValue()));
     	
     }
 
     @FXML
     void doSimula(ActionEvent event) {
+    	
+    	if(grafocreato==false) {
+    		txtResult.setText("Errore! Creazione del grafo richiesta");
+    	}
 
     }
 
@@ -74,6 +86,7 @@ public class FXMLController {
     
     public void setModel(Model model) {
     	this.model = model;
+    	this.grafocreato=false;
     }
     
 }
