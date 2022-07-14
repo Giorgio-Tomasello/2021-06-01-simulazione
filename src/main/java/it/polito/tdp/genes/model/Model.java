@@ -82,6 +82,11 @@ public class Model {
 		return output;		
 	}
 	
+	//public simula(Genes g, int n) {
+		
+		
+	//}
+	
 	
 	
 }
